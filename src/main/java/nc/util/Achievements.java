@@ -32,4 +32,29 @@ public class Achievements {
             }
         }
     }
+
+    @SubscribeEvent
+    public void onSmelting(PlayerEvent.ItemSmeltedEvent event) {
+        Item item = event.smelting.getItem();
+        int damage = event.smelting.getItemDamage();
+
+        for (Achievement b : page.getAchievements()) {
+            if (item.equals(b.theItemStack.getItem()) && damage == b.theItemStack.getItemDamage()) {
+                event.player.addStat(b, 1);
+            }
+        }
+
+    }
+
+    @SubscribeEvent
+    public void onPickUp(PlayerEvent.ItemPickupEvent event) {
+        Item item = event.pickedUp.getEntityItem().getItem();
+        int damage = event.pickedUp.getEntityItem().getItemDamage();
+
+        for (Achievement c : page.getAchievements()) {
+            if (item.equals(c.theItemStack.getItem()) && damage == c.theItemStack.getItemDamage()) {
+                event.player.addStat(c, 1);
+            }
+        }
+    }
 }
